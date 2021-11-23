@@ -3,8 +3,21 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.MethodSource
+import kotlin.test.assertEquals
+
+typealias Geppo = (Int) -> Int
+
+fun Geppo.ofS(param: Int) = Integer.valueOf(this(param))
 
 class SampleTest {
+
+    @Test
+    fun `Lambda mystical constructor`() {
+        { par: Int -> 4 + par }
+            .ofS(5).also {
+                assertEquals(9, it)
+            }
+    }
 
     @Test
     fun whenAdding1and3_thenAnswerIs4() {
