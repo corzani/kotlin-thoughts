@@ -7,7 +7,7 @@ import kotlin.test.assertEquals
 
 typealias Geppo = (Int) -> Int
 
-fun Geppo.ofS(param: Int) = Integer.valueOf(this(param))
+fun Geppo.ofS(param: Int): Int = Integer.valueOf(this(param))
 
 class SampleTest {
 

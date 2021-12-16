@@ -1,8 +1,10 @@
+@file:Suppress("RemoveEmptyPrimaryConstructor")
+
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import kotlin.properties.Delegates
 
-class DelegatesTest() {
+class DelegatesTest {
 
     @Test
     fun `vetoable variable`() {

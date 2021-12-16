@@ -2,10 +2,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-class Retrofit {
-}
-
-data class DioModel(val message: String)
+data class ResponseModel(val message: String)
 
 interface WikiApiService {
 
@@ -15,5 +12,5 @@ interface WikiApiService {
         @Query("format") format: String,
         @Query("list") list: String,
         @Query("srsearch") srsearch: String
-    ): Response<DioModel>
+    ): Response<ResponseModel>
 }

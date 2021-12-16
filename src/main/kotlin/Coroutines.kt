@@ -12,7 +12,7 @@ fun simple(): Flow<Int> = flow {
     }
 }
 
-fun main() = runBlocking<Unit> {
+fun main() = runBlocking {
     println("Calling simple function...")
     val flow = simple()
     println("Calling collect...")

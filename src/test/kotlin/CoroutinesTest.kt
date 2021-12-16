@@ -5,7 +5,42 @@ import org.mockito.kotlin.inOrder
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoInteractions
+/*
 
+From Sonar Rules
+The suspend modifier is generally used for functions that might take some time to complete. The caller coroutine might be potentially suspended.
+
+Functions that return results immediately but start a coroutine in the background should be written as extension functions on CoroutineScope.
+At the same time, these functions should not be declared suspend, as suspending functions should not leave running background tasks behind.
+
+Noncompliant Code Example
+
+suspend fun CoroutineScope.f(): Int {
+    val resource1 = loadResource1()
+    val resource2 = loadResource2()
+    return resource1.size + resource2.size
+}
+
+Compliant Solution
+
+Using suspend:
+
+suspend fun f(): Int {
+    val resource1 = loadResource1()
+    val resource2 = loadResource2()
+    return resource1.size + resource2.size
+}
+
+Using extension on CoroutineScope:
+
+fun CoroutineScope.f(): Deferred<Int> = async {
+    val resource1 = loadResource1()
+    val resource2 = loadResource2()
+    resource1.size + resource2.size
+}
+
+*
+* */
 class CoroutinesTest {
 
     @Test
@@ -20,12 +55,15 @@ class CoroutinesTest {
             print("123")
         }
 
-        // This one is executed but not used...
+        // This one is executed but not used... and that is conceptually wrong...
+        @Suppress("unused")
         async {
             print("532")
             532
         }
 
+        // In case we would love to achieve lazy async function we may not want to
+        // deal with delegates like lazy but using the case below with CoroutineStart.LAZY param
         @SuppressWarnings("unused")
         val a by lazy {
             async {
@@ -59,7 +97,7 @@ class CoroutinesTest {
             d()
         }
 
-
+        // I know... it's too much
         delay(10000000000000)
         verify(c).invoke()
         verifyNoInteractions(d)
