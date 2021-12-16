@@ -48,7 +48,7 @@ class CoroutinesTest {
 
         // launch is typically a start and forget coroutine that doesn't return any value
         launch {
-            println("Helena is the worst")
+            println("I am the worst")
         }
 
         launch {
@@ -67,7 +67,7 @@ class CoroutinesTest {
         @SuppressWarnings("unused")
         val a by lazy {
             async {
-                println("Cicciput")
+                println("Silly Lazyness")
                 34
             }
         }
@@ -78,7 +78,7 @@ class CoroutinesTest {
             println("never executed")
             23
         }
-        println("Put Cicci?")
+        println("Do you fancy a cup of tea?")
 
         delay(3423)
     }
@@ -114,6 +114,21 @@ class CoroutinesTest {
         * It executes its internal code asynchronously waiting to the end of computation
         * to give back the execution to the caller function
         * */
+
+
+        /*
+        runBlocking is a low-level construct, to be used only in framework code or self-contained examples like yours.
+        It turns an existing thread into an event loop and creates its coroutine with a Dispatcher that posts resuming
+        coroutines to the event loop's queue.
+        coroutineScope is a user-facing construct, used to delineate the boundaries of a task that is being
+        parallel-decomposed inside it. You use it to conveniently await on all the async work happening inside it,
+        get the final result, and handle all failures at one central place.
+        */
+
+        // Write some tests regarding
+        // join
+        // cancellation
+        // continuation object
 
         val func = mock<(String) -> Unit>()
 
